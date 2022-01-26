@@ -21,10 +21,12 @@ public class TestConnection {
 		ResultSet result;
 		Connection con = getConnection();
 		result = con.prepareStatement(query).executeQuery();
-		while (result.next()) {
-			custno = result.getInt("CUSTNO");
-			System.out.println("custno: " + custno);
-		}
+		result.next();
+		custno = result.getInt("CUSTNO");
+//		while (result.next()) {
+//			custno = result.getInt("CUSTNO");
+//			System.out.println("custno: " + custno);
+//		}
 		return custno;
 	}
 	public static void main(String[] args) throws Exception {
