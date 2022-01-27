@@ -1,0 +1,29 @@
+package demo;
+
+public class TestDrive {
+
+	public static void main(String[] args) {
+		String str1 = "whatever";
+		String s = "abcwr";
+		for (int i = 0; i < s.length(); i++) {
+			int index =  str1.indexOf(s.charAt(i));
+			System.out.println(s.charAt(i) 
+					+ "의 위치는 "
+					+ index + "번째 입니다.");
+		}
+//		
+//		System.out.println("c의 인덱스는: " 
+//				+ "abcdef".indexOf('a', 'b',0));
+//		
+//		String str1 = "whatever";
+//		String str2 = str1;
+//		String str3 = "whatever";
+//		String str4 = new String("whatever");
+//		String str5 = new String("what5ever");
+//		
+//		System.out.println(str1 == str2);
+//		System.out.println(str4.equals(str5));
+		
+	}
+
+}
