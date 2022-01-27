@@ -1,7 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ page import="java.sql.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="./css/common.css" />
+<title>JSP 오라클 테스트</title>
+</head>
+<body>
+	<div class="container">
+<div class="content">
+<form action="TestConnect.jsp">
+<input type="text" name="name"><input type="submit" value="검색">
+</form>
+
 <%
+	String name = request.getParameter("name");
+	out.println("이름은:" + name + "입니다. <br>");
+
 	Class.forName("oracle.jdbc.OracleDriver");
 	Connection con = DriverManager.getConnection(
 			"jdbc:oracle:thin:@//localhost:1521/xe", "shop", "1234");
@@ -14,7 +31,7 @@
 	out.println("<tr><th>고객번호</th><th>이름</th><th>전화번호</th>" +
 		"<th>주소</th><th>가입일</th><th>등급</th><th>도시</th><tr>");
 	while (result.next()) {
-		out.println("<tr>");
+		out.println("<tr style='text-align:center;'>");
 		custno = result.getInt("CUSTNO");
 		custName = result.getString("CUSTNAME");
 		phone = result.getString("PHONE");
@@ -30,5 +47,23 @@
 	}
 	out.println("</table>");
 	
+	
+	
+	
+	
+	
+	
 %>
+
+</div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
 
