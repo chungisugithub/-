@@ -25,7 +25,7 @@
 	int custno = 0;	String custName = ""; int price = 0;	Date date;	String grade = "";
 	String phone = "";String address = "";String city = "";
 	String query;
-	if(name == null) {
+	if(name == null || name.isEmpty()) {
 		query = "select mo.custno, mb.custname, mo.price from money_tbl_02 mo, member_tbl_02 mb where mo.custno = mb.custno";
 	} else {
 		query = "select mo.custno, mb.custname, mo.price " + 
