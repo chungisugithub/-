@@ -22,7 +22,8 @@
 	Class.forName("oracle.jdbc.OracleDriver");
 	Connection con = DriverManager.getConnection(
 			"jdbc:oracle:thin:@//localhost:1521/xe", "shop", "1234");
-	int custno = 0;	String custName = ""; int price = 0;	Date date;	String grade = "";
+	int custno = 0;	String custName = ""; int price = 0;	
+	int sum = 0; 
 	String phone = "";String address = "";String city = "";
 	String query;
 	if(name == null || name.isEmpty()) {
@@ -39,16 +40,12 @@
 		custno = result.getInt("CUSTNO");
 		custName = result.getString("CUSTNAME");
 		price = result.getInt("PRICE");
+		sum += price;
 		out.println(""+custno + " " + custName + " " + price + "<br>");
 	}
-	
-	
-	
-	
-	
-	
-	
 %>
+
+	<p><%= name %> 님의 매출 총합계는 <%= sum %>입니다.</p>
 
 </div>
 </div>
