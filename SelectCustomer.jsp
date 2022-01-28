@@ -1,43 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ page import="java.sql.*" %>
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link rel="stylesheet" href="./css/common.css"/>
-<div id="topMenu">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>고객명단</title>
+</head>
+<body>
 <ul>
-<li><a href="NewCustomerForm.jsp">신규 고객 등록</a></li>
-<li><a href="SelectCustomer.jsp">고객 리스트</a></li>
+	<li>신규교객등록</li>
+	<li>고객리스트</li>
 </ul>
-</div>
-<h2>고객 리스트</h2>
-<table>
-<%
- request.setCharacterEncoding("UTF-8");
- String url ="jdbc:oracle:thin:@localhost:1521:xe";
- Class.forName("oracle.jdbc.driver.OracleDriver");
- Connection conn = DriverManager.getConnection(url,"system","1234");
-// ResultSet rs = conn.prepareStatement("select * from member_tbl_02").executeQuery();
- ResultSet rs = conn.prepareStatement("select CUSTNO,CUSTNAME,PHONE,ADDRESS,TO_CHAR(JOINDATE,'YYYY-MM-DD') as joindate,GRADE, CITY from member_tbl_02 order by custno desc").executeQuery();
+<h2>고객리스트</h2>
 
- while(rs.next()) {
-	 %>
-	 <tr>
-	 <td><a href="./UpdateCustomerForm.jsp?custno=<%= rs.getString("custno")%>"><%= rs.getString("custno")%></a></td>
-	 
-	 
-	 <td><%= rs.getString("custname")%></td>
-	 <td><%= rs.getString("phone")%></td>
-	 <td><%= rs.getString("address")%></td>
-	 <td><%= rs.getString("joindate")%></td>
-	 <td><%= rs.getString("grade")%></td>
-	 <td><%= rs.getString("city")%></td>
-	 <td><a href="DeleteCustomerById.jsp?custno=<%= rs.getString("custno") %>&custname=<%= rs.getString("custname") %>  ">삭제</a></td>
-	 </tr>
-<% } %>
+<%
+String url ="jdbc:oracle:thin:@localhost:1521:xe";
+Class.forName("oracle.jdbc.driver.OracleDriver");
+Connection conn = DriverManager.getConnection(url,"shop","1234");
+ResultSet rs = conn.prepareStatement("select CUSTNO,CUSTNAME,PHONE from member_tbl_02").executeQuery();
+out.print("<table border='1'>");
+while( rs.next()) {
+	out.print("<tr>");
+	out.print("<td>");
+	out.print(rs.getInt("custno"));
+	out.print("</td>");
+	out.print("<td>");
+	out.print(rs.getString("custname"));
+	out.print("</td>");
+	out.print("<td>");
+	out.print(rs.getString("phone"));
+	out.print("</td>");
+	//10002</td><td>김행복</td><td>010-ㅣㅣㅣㅣ</td>");
+	//out.print("<td>10001</td><td>김행복</td><td>010-1111-2222</td>
+	out.print("</tr>");
+}
+%>
 </table>
 
+<td>고객번호</td><td>고객명</td><td>전화번호</td>
+<td>10001</td><td>김행복</td><td>010-1111-2222</td>
+<td>10002</td><td>이축복</td><td>010-1111-3333</td>
+
+
+
+</body>
 </html>
- 
-
-
