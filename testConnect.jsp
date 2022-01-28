@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@ page import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,30 +22,25 @@
 	Class.forName("oracle.jdbc.OracleDriver");
 	Connection con = DriverManager.getConnection(
 			"jdbc:oracle:thin:@//localhost:1521/xe", "shop", "1234");
-	int custno = 0;	String custName = "";	Date date;	String grade = "";
+	int custno = 0;	String custName = ""; int price = 0;	Date date;	String grade = "";
 	String phone = "";String address = "";String city = "";
-	String query = "select * from member_tbl_02";
+	String query;
+	if(name == null) {
+		query = "select mo.custno, mb.custname, mo.price from money_tbl_02 mo, member_tbl_02 mb where mo.custno = mb.custno";
+	} else {
+		query = "select mo.custno, mb.custname, mo.price " + 
+	         "from money_tbl_02 mo, member_tbl_02 mb " + 
+		     "where mo.custno = mb.custno and " + 
+	         "mb.custname = '" + name +"'";
+	}
 	ResultSet result;
 	result = con.prepareStatement(query).executeQuery();
-	out.println("<table border='1'>");
-	out.println("<tr><th>고객번호</th><th>이름</th><th>전화번호</th>" +
-		"<th>주소</th><th>가입일</th><th>등급</th><th>도시</th><tr>");
 	while (result.next()) {
-		out.println("<tr style='text-align:center;'>");
 		custno = result.getInt("CUSTNO");
 		custName = result.getString("CUSTNAME");
-		phone = result.getString("PHONE");
-		address = result.getString("ADDRESS");
-		date = result.getDate("JOINDATE");
-		grade = result.getString("GRADE");
-		city = result.getString("CITY");
-		out.println("<td>"+custno + "</td><td>" + custName + "</td><td>"+
-				phone + "</td><td>"+ address + "</td><td>"+
-				 date+ "</td><td>" + grade + "</td><td>"+ city
-				 + "</td>");
-		out.println("</tr>");
+		price = result.getInt("PRICE");
+		out.println(""+custno + " " + custName + " " + price + "<br>");
 	}
-	out.println("</table>");
 	
 	
 	
@@ -59,11 +54,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
